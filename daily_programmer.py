@@ -7,6 +7,6 @@ def ordinal_formatter(i):
 
 
 def ordinal(n, size):
-    return list(map(ordinal_formatter, [i for i in range(1,size+1) if i != n]))
+    return [ordinal_formatter(i) for i in range(1, size+1) if i != n]
 
 print(ordinal(5, 37))
