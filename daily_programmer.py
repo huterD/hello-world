@@ -1,3 +1,4 @@
+# Challenge 267 [Easy]
 def ordinal_formatter(i):
     suffixes = ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"]
     if (i // 10) % 10 == 1:
