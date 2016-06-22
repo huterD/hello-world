@@ -234,21 +234,32 @@ Sub GroupReplace()
     Application.Run "PERSONAL.XLSB!Multi_FindReplace"
 End Sub
 
-Sub ValoresUnicos()
+Sub uniqueValues()
     With Application
         ' Turn off screen updating to increase performance
         .ScreenUpdating = False
         .Calculation = xlCalculationManual
         .EnableEvents = False
-        With Range(Selection.Address)
-            Range(Selection.Address).Offset(0, 1).Value = 0
-            ' Use AdvanceFilter to filter unique values
-            .AdvancedFilter Action:=xlFilterInPlace, Unique:=True
-            .SpecialCells(xlCellTypeVisible).Offset(0, 1).Value = 1
-            On Error Resume Next
-            ActiveSheet.ShowAllData
-            Err.Clear
-        End With
+        Dim d
+        Set d = CreateObject("Scripting.Dictionary")
+
+        Dim rng As Range
+        Dim arr() as Variant
+
+        Set rng = Selection
+        arr = rng
+        ary = rng
+
+        For i = LBound(arr, 1) To UBound(arr, 1)
+            If d.Exists(arr(i, 1)) = true Then
+                ary(i, 1) = 0
+            Else
+                ary(i, 1) = 1
+                d.Add arr(i, 1), i
+            End If
+        Next
+        rng.Offset(0, 1) = ary
+        ' Turn events back on
         .ScreenUpdating = True
         .Calculation = xlCalculationAutomatic
         .EnableEvents = True
