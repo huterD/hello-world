@@ -191,7 +191,7 @@ Sub InsSepColumn()
 End Sub
 
 Sub Multi_FindReplace()
-    'PURPOSE: Find & Replace a list of text/values throughout a selection from a table
+    ' Find & Replace a list of text/values throughout a selection from a table
 
     Dim fndList As Integer
     Dim rplcList As Integer
@@ -259,6 +259,38 @@ Sub uniqueValues()
             End If
         Next
         rng.Offset(0, 1) = ary
+        ' Turn events back on
+        .ScreenUpdating = True
+        .Calculation = xlCalculationAutomatic
+        .EnableEvents = True
+    End With
+End Sub
+
+Sub multiplyRange()
+    ' Takes a range as input and multiplies it by a factor.
+        
+    Set updateRng = Application.InputBox(prompt:="Select a range", Type:=8)
+    Dim factor As Double
+    factor = 1.045
+    
+    With Application
+        ' Turn off screen updating to increase performance
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+        
+        Dim rng As Range
+        Dim arr() As Variant
+
+        Set rng = updateRng
+        arr = rng
+
+        For i = LBound(arr, 1) To UBound(arr, 1)
+            For j = LBound(arr, 2) To UBound(arr, 2)
+                arr(i, j) = arr(i, j) * factor
+            Next
+        Next
+        rng = arr
         ' Turn events back on
         .ScreenUpdating = True
         .Calculation = xlCalculationAutomatic
