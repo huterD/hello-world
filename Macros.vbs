@@ -297,3 +297,17 @@ Sub multiplyRange()
         .EnableEvents = True
     End With
 End Sub
+
+Public Sub GoalSeeker()
+    Application.ScreenUpdating = False
+    Application.Calculation = xlCalculationManual
+    Application.EnableEvents = False
+
+    For I = 4 To 227
+        Cells(I, 124).GoalSeek Goal:=Cells(I, 107), ChangingCell:=Cells(I, 119)
+    Next I
+    
+    Application.ScreenUpdating = True
+    Application.Calculation = xlCalculationAutomatic
+    Application.EnableEvents = True
+End Sub
