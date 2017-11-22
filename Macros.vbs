@@ -303,8 +303,8 @@ Public Sub GoalSeeker()
     Application.Calculation = xlCalculationManual
     Application.EnableEvents = False
 
-    For I = 4 To 227
-        Cells(I, 124).GoalSeek Goal:=Cells(I, 107), ChangingCell:=Cells(I, 119)
+    For I = lowLimit To highLimit
+        Cells(I, colTarget).GoalSeek Goal:=Cells(I, colBase), ChangingCell:=Cells(I, colModify)
     Next I
     
     Application.ScreenUpdating = True
