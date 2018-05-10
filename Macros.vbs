@@ -352,3 +352,47 @@ MaxL = string1_length: If string2_length > MaxL Then MaxL = string2_length
 Levenshtein = 100 - CLng((distance(string1_length, string2_length) * 100) / MaxL)
 
 End Function
+
+Function ArraySubstitute(originalString As String, findStrings As Range, subStrings As Range)
+    If findStrings.Columns.Count > 1 Then ArraySubstitute = "Error": Exit Function
+    If subStrings.Columns.Count > 1 Then ArraySubstitute = "Error": Exit Function
+    If findStrings.Rows.Count <> subStrings.Rows.Count Then ArraySubstitute = "Error": Exit Function
+    Dim a As Integer
+    Dim b As Integer
+    Dim add As Integer
+    Dim pos As Integer
+    Dim ch As String
+    Dim iFind As Integer
+    Dim sFind As String
+    Dim sRep As String
+    
+    ArraySubstitute = originalString
+    add = 0
+    pos = 0
+    
+    For a = 1 To Len(originalString) 'Looping through each character in the string
+        If a < pos Then GoTo NextA
+        
+        For b = 1 To findStrings.Rows.Count
+            
+            sFind = findStrings.Cells(b, 1).Value
+            
+            iFind = Len(sFind)
+            If Mid(originalString, a, iFind) = sFind And iFind > 0 Then
+                
+                sRep = subStrings.Cells(b, 1).Value
+                
+                ArraySubstitute = Left(ArraySubstitute, a + add - 1) & sRep & Right(originalString, Len(originalString) - a - iFind + 1)
+                
+                add = add + Len(sRep) - iFind ' add in the additional characters in the new string
+                pos = a + iFind
+            End If
+            
+        
+        Next b
+NextA:
+    Next a
+
+
+End Function
+
