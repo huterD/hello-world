@@ -312,13 +312,14 @@ Public Sub GoalSeeker()
     Application.EnableEvents = True
 End Sub
 
+
+
+Function Levenshtein(ByVal string1 As String, ByVal string2 As String) As Long
 ' Levenshtein tweaked for UTLIMATE speed and CORRECT results
 ' Solution based on Longs
 ' Intermediate arrays holding Asc()make difference
 ' even Fixed length Arrays have impact on speed (small indeed)
 ' Levenshtein version 3 will return correct percentage
-'
-Function Levenshtein(ByVal string1 As String, ByVal string2 As String) As Long
 
 Dim i As Long, j As Long, string1_length As Long, string2_length As Long
 Dim distance(0 To 60, 0 To 50) As Long, smStr1(1 To 60) As Long, smStr2(1 To 50) As Long
